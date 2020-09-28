@@ -2,10 +2,20 @@ version: '3'
 services: 
     mongo:
         image: "mongo"
+        container_name: mongo
         ports: 
             - "27017:27017"
+        volumes: 
+            - ~/mongo/data:/data/db
+        
     flask:
         build: ./server
         image: "python:3.8.5-slim-buster"
         ports: 
             - "5000:5000"
+    node:
+        build: ./client/photocounter
+        image: 'node:10.15.3'
+        ports: 
+            - "8080:8080"
+

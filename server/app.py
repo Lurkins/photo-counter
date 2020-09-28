@@ -1,10 +1,12 @@
 from flask import Flask, jsonify, request, redirect
+from flask_cors import CORS, cross_origin
 from flask_pymongo import PyMongo
 import json
 from bson.objectid import ObjectId
 from bson.json_util import dumps
 
 app = Flask(__name__)
+CORS(app)
 app.config['MONGO_DBNAME'] = 'myDatabase'
 app.config["MONGO_URI"] = "mongodb://mongo/myDatabase"
 mongo = PyMongo(app)
