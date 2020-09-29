@@ -23,9 +23,18 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <h4>Add a new photo</h4>
-                <input class="mb-5" type="file" @change="fileChange">
-                <button v-on:click="fileUpload">Upload!</button>
+                <div class="mb-5">
+                    <h4>Add a photo!</h4>
+                    <b-form-file
+                        accept="image/jpeg, image/png, image/gif"
+                        class="mb-5"
+                        @change="fileChange"
+                        type="file"
+                        v-model="file"
+                    >
+                    </b-form-file>
+                    <b-button pill variant="primary" v-on:click="fileUpload">Upload File</b-button>
+                </div>
             </div>
         </div>
     </div>
@@ -33,8 +42,9 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Component, Vue } from 'vue-property-decorator';
 import axios from 'axios'
+const apiUrl = "http://0.0.0.0:5000"
 
 @Component({
   components: {
@@ -42,12 +52,11 @@ import axios from 'axios'
   },
 })
 export default class Home extends Vue {
-//   @Prop() private msg!: string;
-    photos: Array<any> = []
+    photos: Array<{"name": string; "score": number; "_id": {"$oid": string}}> = []
+    // eslint-disable-next-line
     file: any = null
-    // apiUrl: "http://0.0.0.0:5000"
     mounted(){
-        axios.get(`http://0.0.0.0:5000/api/photo/allphotos`)
+        axios.get(`${apiUrl}/api/photo/allphotos`)
         .then((res) => {
             this.photos = res.data
         })
@@ -56,7 +65,7 @@ export default class Home extends Vue {
         });
     }
     upvote(id: string){
-        axios.post(`http://0.0.0.0:5000/api/upvote/${id}`)
+        axios.post(`${apiUrl}/api/upvote/${id}`)
         .then((res) => {
             const index = this.photos.findIndex(p => p._id.$oid === id)
             this.photos[index].score = res.data.score
@@ -66,7 +75,7 @@ export default class Home extends Vue {
         });
     }
     downvote(id: string){
-        axios.post(`http://0.0.0.0:5000/api/downvote/${id}`)
+        axios.post(`${apiUrl}/api/downvote/${id}`)
         .then((res) => {
             const index = this.photos.findIndex(p => p._id.$oid === id)
             this.photos[index].score = res.data.score
@@ -75,16 +84,17 @@ export default class Home extends Vue {
             console.error(error)
         });
     }
+    // eslint-disable-next-line
     fileChange(e: any) {
         this.file = e.target.files[0];
     } 
     fileUpload() {
         const payload = new FormData()
         payload.append('new_file', this.file);
-        axios.post('http://0.0.0.0:5000/api/upload', payload)
+        axios.post(`${apiUrl}/api/upload`, payload)
         .then((res) => {
-            console.log(res);
             this.photos.push(res.data)
+            this.file = null
         })
         .catch((error) => {
             console.error(error)

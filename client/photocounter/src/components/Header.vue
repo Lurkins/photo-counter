@@ -2,7 +2,7 @@
   <div class="container">
       <div class="row">
           <div class="col-12">
-              <div class="w-100 vh-25 text-center">
+              <div class="w-100 text-center">
                 <h1 class="my-3">{{heading}}</h1>
               </div>
           </div>
@@ -20,8 +20,6 @@ export default class Header extends Vue {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
 
 </style>
