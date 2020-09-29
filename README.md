@@ -8,7 +8,7 @@ Clone the repo to your local machine and launch in Docker. See below for details
 
 ### Prerequisites
 
-You will need Docker installed on your system to run the app. You can download and install docker from https://www.docker.com/
+You will need Docker installed on your system to run the app. You can download and install Docker from https://www.docker.com/
 
 ### Installing
 
@@ -31,10 +31,6 @@ docker-compose up
 ```
 
 Once Docker has built and run all the containers visit http://localhost:8080/ in a browser.
-
-```
-http://localhost:8080/
-```
 
 Upload your images and rate them with the +1 / -1 buttons.
 
