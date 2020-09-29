@@ -42,7 +42,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue } from 'vue-property-decorator'
 import axios from 'axios'
 const apiUrl = "http://0.0.0.0:5000"
 
@@ -67,8 +67,8 @@ export default class Home extends Vue {
     upvote(id: string){
         axios.post(`${apiUrl}/api/upvote/${id}`)
         .then((res) => {
-            const index = this.photos.findIndex(p => p._id.$oid === id)
-            this.photos[index].score = res.data.score
+            const index: number = this.photos.findIndex(p => p._id.$oid === id)
+            this.photos.splice(index, 1, res.data)
         })
         .catch((error) => {
             console.error(error)
@@ -77,8 +77,8 @@ export default class Home extends Vue {
     downvote(id: string){
         axios.post(`${apiUrl}/api/downvote/${id}`)
         .then((res) => {
-            const index = this.photos.findIndex(p => p._id.$oid === id)
-            this.photos[index].score = res.data.score
+            const index: number = this.photos.findIndex(p => p._id.$oid === id)
+            this.photos.splice(index, 1, res.data)
         })
         .catch((error) => {
             console.error(error)
@@ -90,7 +90,7 @@ export default class Home extends Vue {
     } 
     fileUpload() {
         const payload = new FormData()
-        payload.append('new_file', this.file);
+        payload.append('new_file', this.file)
         axios.post(`${apiUrl}/api/upload`, payload)
         .then((res) => {
             this.photos.push(res.data)

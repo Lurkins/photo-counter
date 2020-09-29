@@ -5,8 +5,8 @@ services:
         container_name: mongo
         ports: 
             - "27017:27017"
-        volumes: 
-            - ~/mongo/data:/data/db
+        # volumes: 
+        #     - ~/mongo/data:/data/db
         
     flask:
         build: ./server
@@ -15,7 +15,7 @@ services:
             - "5000:5000"
     node:
         build: ./client/photocounter
-        image: 'node:10.15.3'
+        image: 'node:latest'
         ports: 
             - "8080:8080"
 
