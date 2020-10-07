@@ -44,7 +44,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import axios from 'axios'
-const apiUrl = "http://0.0.0.0:5000"
+const apiUrl = "http://localhost:5000"
 
 @Component({
   components: {
